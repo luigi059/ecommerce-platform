@@ -9,15 +9,32 @@ import {
 import { FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../redux/api/userApiSlice';
+import { logout } from '../../redux/features/auth/authSlice';
 import './Navigation.css';
 
 const Navigation = () => {
+	const { userInfo } = useSelector((state) => state.auth);
+
 	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [showSideBar, setShowSideBar] = useState(false);
 
 	const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 	const toggleSideBar = () => setShowSideBar(!showSideBar);
 	const closeSideBar = () => setShowSideBar(false);
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [logoutApiCall] = useLoginMutation();
+	const logoutHandler = async () => {
+		try {
+			await logoutApiCall().unwrap();
+			dispatch(logout());
+			navigate('/login');
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<div
@@ -58,6 +75,15 @@ const Navigation = () => {
 						FAVOURITES
 					</span>{' '}
 				</Link>
+			</div>
+
+			<div className="relative">
+				<button
+					onClick={toggleDropdown}
+					className="flex items-center text-gray-8000 focus:outline-none"
+				>
+					{userInfo ? <span className="text-white"></span> : <></>}
+				</button>
 			</div>
 
 			<ul>
