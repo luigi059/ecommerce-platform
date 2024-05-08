@@ -65,20 +65,87 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
 	if (req.user)
-		res
-			.status(200)
-			.json({
-				_id: req.user._id,
-				username: req.user.username,
-				email: req.user.email,
-			});
+		res.status(200).json({
+			_id: req.user._id,
+			username: req.user.username,
+			email: req.user.email,
+		});
 	else return res.status(404).json({ error: 'User not found' });
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+	const { username, email, password } = req.body;
+	const user = await User.findById(req.user._id);
+	if (user) {
+		user.username = username || user.username;
+		user.email = email || user.email;
+
+		if (password) {
+			const salt = await bcrypt.genSalt(10);
+			const hashedPassword = await bcrypt.hash(password, salt);
+			user.password = hashedPassword;
+		}
+
+		const updatedUser = await user.save();
+
+		res.json({
+			_id: updatedUser._id,
+			username: updatedUser.username,
+			email: updatedUser.email,
+			isAdmin: updateUser.isAdmin,
+		});
+	} else return res.status(404).json({ error: 'User not found' });
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.params.id);
+	console.log(req.params.id);
+	if (user) {
+		if (user.isAdmin)
+			return res.status(400).json({ error: 'Cannot delete an admin user' });
+		await User.deleteOne({ _id: user._id });
+		res.status(200).json({ message: 'User deleted successfully' });
+	} else return res.status(404).json({ error: 'User not found' });
+});
+
+const getUserById = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.params.id).select('-password');
+	if (user) res.status(200).json(user);
+	else return res.status(404).json({ error: 'User not found' });
+});
+
+const updateUserById = asyncHandler(async (req, res) => {
+	const { username, email, isAdmin } = req.body;
+	const user = await User.findById(req.params.id);
+	if (user) {
+		user.username = username || user.username;
+		user.email = email || user.email;
+
+		if (isAdmin) user.isAdmin = Boolean(isAdmin);
+		else
+			return res
+				.status(404)
+				.json({ error: 'Please fill in all the required fields' });
+
+		const updatedUser = await user.save();
+
+		res.json({
+			_id: updatedUser._id,
+			username: updatedUser.username,
+			email: updatedUser.email,
+			isAdmin: updateUser.isAdmin,
+		});
+	} else return res.status(404).json({ error: 'User not found' });
 });
 
 export {
 	createUser,
+	deleteUser,
 	getAllUsers,
 	getCurrentUserProfile,
+	getUserById,
 	loginUser,
 	logoutUser,
+	updateUser,
+	updateUserById,
 };
