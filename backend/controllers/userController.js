@@ -4,6 +4,7 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/createToken.js';
 
 const createUser = asyncHandler(async (req, res) => {
+	console.log(req.body);
 	const { username, email, password } = req.body;
 
 	if (!username || !email || !password)
