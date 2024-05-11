@@ -7,7 +7,16 @@ body {
 	color: #fff;
 }
 
-input,
-textarea {
-	color: #000;
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+	background-color: #000;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-text-fill-color: white !important;
+	-webkit-box-shadow: 0 0 0 30px #000 inset !important;
 }
