@@ -124,10 +124,10 @@ const updateUserById = asyncHandler(async (req, res) => {
 		user.email = email || user.email;
 
 		if (isAdmin) user.isAdmin = Boolean(isAdmin);
-		else
-			return res
+		else user.isAdmin = false;
+		/* 			return res
 				.status(404)
-				.json({ error: 'Please fill in all the required fields' });
+				.json({ error: 'Please fill in all the required fields' }); */
 
 		const updatedUser = await user.save();
 
