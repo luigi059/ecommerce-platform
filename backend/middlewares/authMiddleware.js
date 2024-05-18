@@ -4,14 +4,14 @@ import asyncHandler from './asyncHandler.js';
 
 const authenticate = asyncHandler(async (req, res, next) => {
 	const token = req.cookies.jwt;
-	const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-	if (!token || !decoded) {
+	if (!token) {
 		return res.status(401).json({ error: 'Not authorized' });
 	}
+
+	const decoded = jwt.verify(token, process.env.JWT_SECRET);
 	req.user = await User.findById(decoded.userId).select('-password');
 	if (!req.user) {
-		res.status(404).json({ error: 'User not found' });
+		return res.status(404).json({ error: 'User not found' });
 	}
 	next();
 });

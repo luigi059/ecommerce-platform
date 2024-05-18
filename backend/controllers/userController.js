@@ -39,9 +39,12 @@ const loginUser = asyncHandler(async (req, res) => {
 			.json({ message: 'Please fill in all the required fields' });
 
 	const exisingUser = await User.findOne({ email });
-	const isPasswordValid = await bcrypt.compare(password, exisingUser.password);
+	if (!exisingUser) {
+		return res.status(400).json({ error: 'Invalid username or password' });
+	}
 
-	if (!exisingUser || !isPasswordValid) {
+	const isPasswordValid = await bcrypt.compare(password, exisingUser.password);
+	if (!isPasswordValid) {
 		return res.status(400).json({ error: 'Invalid username or password' });
 	}
 

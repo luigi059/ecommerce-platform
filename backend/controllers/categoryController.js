@@ -12,4 +12,19 @@ const createCategory = asyncHandler(async (req, res) => {
 	res.json(category);
 });
 
-export { createCategory };
+const updateCategory = asyncHandler(async (req, res) => {
+	const { name } = req.body;
+	const { categoryId } = req.params;
+
+	if (!name) return res.status(400).json({ error: 'Name is required' });
+
+	const category = await Category.findById(categoryId);
+	console.log(category);
+	if (!category) return res.status(400).json({ error: 'Category not found' });
+
+	category.name = name;
+	const updatedCategory = await category.save();
+	res.json(updatedCategory);
+});
+
+export { createCategory, updateCategory };
