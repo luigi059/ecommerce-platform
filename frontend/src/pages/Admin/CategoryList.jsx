@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import CategoryForm from '../../components/CategoryForm.jsx';
+import Modal from '../../components/Modal.jsx';
 import {
 	useCreateCategoryMutation,
 	useDeleteCategoryMutation,
@@ -36,6 +37,32 @@ const CategoryList = () => {
 		}
 	};
 
+	const handleUpdateCategory = async (e) => {
+		e.preventDefault();
+		if (!updateName) return toast.error('Category name is required');
+
+		try {
+			const result = await updateCategory({
+				categoryId: selectedCategory._id,
+				updatedCategory: { name: updateName },
+			}).unwrap();
+			if (result.error) toast.error(result.error);
+			else {
+				toast.success(`${result.name} successfully updated`);
+				setSelectedCategory(null);
+				setUpdateName('');
+				setModalVisible(false);
+			}
+		} catch (error) {
+			console.error(error);
+			return toast.error('Updating category failed, try again.');
+		}
+	};
+
+	const handleDeleteCategory = async (e) => {
+		e.preventDefault();
+	};
+
 	return (
 		<div className="ml-[10rem] flex flex-col md:flex-row">
 			<div className="md:w-3/4 p-3">
@@ -65,6 +92,15 @@ const CategoryList = () => {
 						</div>
 					))}
 				</div>
+				<Modal isOpen={modalVisible} onClose={() => setModalVisible(false)}>
+					<CategoryForm
+						value={updateName}
+						setValue={(value) => setUpdateName(value)}
+						handleSubmit={handleUpdateCategory}
+						buttonText="Update"
+						handleDelete={handleDeleteCategory}
+					/>
+				</Modal>
 			</div>
 		</div>
 	);
