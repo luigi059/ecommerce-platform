@@ -23,8 +23,8 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
 				method: 'POST',
 			}),
 		}),
-		getCategories: builder.mutation({
-			query: () => `${CATEGORY_URL}/categories`,
+		getCategories: builder.query({
+			query: () => `${CATEGORY_URL}`,
 		}),
 	}),
 });
@@ -33,5 +33,5 @@ export const {
 	useCreateCategoryMutation,
 	useUpdateCategoryMutation,
 	useDeleteCategoryMutation,
-	useFetchCategoryMutation,
+	useGetCategoriesQuery,
 } = categoryApiSlice;
