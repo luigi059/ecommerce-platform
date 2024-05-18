@@ -2,6 +2,7 @@ import express from 'express';
 import formidable from 'express-formidable';
 import {
 	createProduct,
+	deleteProduct,
 	updateProduct,
 } from '../controllers/productController.js';
 import { authenticate, authorizeAdmin } from '../middlewares/authMiddleware.js';
@@ -13,6 +14,7 @@ router
 	.post(authenticate, authorizeAdmin, formidable(), createProduct);
 router
 	.route('/:id')
-	.put(authenticate, authorizeAdmin, formidable(), updateProduct);
+	.put(authenticate, authorizeAdmin, formidable(), updateProduct)
+	.delete(authenticate, authorizeAdmin, deleteProduct);
 
 export default router;
