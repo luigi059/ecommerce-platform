@@ -10,7 +10,7 @@ import {
 } from '../../redux/api/categoryApiSlice.js';
 
 const CategoryList = () => {
-	const { data: categories } = useGetCategoriesQuery();
+	const { data: categories, refetch } = useGetCategoriesQuery();
 	const [name, setName] = useState('');
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [updateName, setUpdateName] = useState('');
@@ -30,6 +30,7 @@ const CategoryList = () => {
 			else {
 				setName('');
 				toast.success(`${result.name} successfully created`);
+				refetch();
 			}
 		} catch (error) {
 			console.error(error);
@@ -52,6 +53,7 @@ const CategoryList = () => {
 				setSelectedCategory(null);
 				setUpdateName('');
 				setModalVisible(false);
+				refetch();
 			}
 		} catch (error) {
 			console.error(error);
@@ -59,8 +61,20 @@ const CategoryList = () => {
 		}
 	};
 
-	const handleDeleteCategory = async (e) => {
-		e.preventDefault();
+	const handleDeleteCategory = async () => {
+		try {
+			const result = await deleteCategory(selectedCategory._id).unwrap();
+			if (result.error) return toast.error(result.error);
+			else {
+				toast.success(`Category successfully deleted`);
+				setSelectedCategory(null);
+				setModalVisible(false);
+				refetch();
+			}
+		} catch (error) {
+			console.error(error);
+			toast.error('Deleting category failed, try again');
+		}
 	};
 
 	return (
