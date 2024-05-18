@@ -9,7 +9,7 @@ const createCategory = asyncHandler(async (req, res) => {
 	if (existingCategory) return res.json({ error: 'Category already exists' });
 
 	const category = await new Category({ name }).save();
-	res.json(category);
+	res.status(200).json(category);
 });
 
 const updateCategory = asyncHandler(async (req, res) => {
@@ -24,7 +24,28 @@ const updateCategory = asyncHandler(async (req, res) => {
 
 	category.name = name;
 	const updatedCategory = await category.save();
-	res.json(updatedCategory);
+	res.status(200).json(updatedCategory);
 });
 
-export { createCategory, updateCategory };
+const deleteCategory = asyncHandler(async (req, res) => {
+	await Category.findByIdAndDelete(req.params.categoryId);
+	res.status(200).json('Category Deleted');
+});
+
+const listCategories = asyncHandler(async (req, res) => {
+	const categories = await Category.find({});
+	res.status(200).json(categories);
+});
+
+const getCategory = asyncHandler(async (req, res) => {
+	const category = await Category.find({ _id: req.params.categoryId });
+	res.status(200).json(category);
+});
+
+export {
+	createCategory,
+	deleteCategory,
+	getCategory,
+	listCategories,
+	updateCategory,
+};
