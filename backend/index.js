@@ -22,8 +22,6 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/product', productRoutes);
 app.use('/api/upload', uploadRoutes);
 
-app.get('/', (req, res) => {
-	res.send('Hello World');
-});
+const __dirname = path.resolve();
 
 app.listen(port, () => console.log(`Server listening on ${port}`));
