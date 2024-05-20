@@ -62,7 +62,7 @@ const ProductList = () => {
 								/>
 							</div>
 							{/* Price */}
-							<div className="two">
+							<div className="two ml-10">
 								<label htmlFor="price">Price</label> <br />
 								<input
 									type="number"
@@ -70,6 +70,65 @@ const ProductList = () => {
 									value={price}
 									onChange={(e) => setPrice(e.target.value)}
 								/>
+							</div>
+						</div>
+						<div className="flex flex-wrap">
+							{/* Brand */}
+							<div className="one">
+								<label htmlFor="brand">Brand</label> <br />
+								<input
+									type="text"
+									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+									value={brand}
+									onChange={(e) => setBrand(e.target.value)}
+								/>
+							</div>
+							{/* Quantity */}
+							<div className="two ml-10">
+								<label htmlFor="quantity">Quantity</label> <br />
+								<input
+									type="number"
+									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+									value={quantity}
+									onChange={(e) => setQuantity(e.target.value)}
+								/>
+							</div>
+						</div>
+						{/* Description */}
+						<label htmlFor="description" className="my-5">
+							Description
+						</label>
+						<textarea
+							type="text"
+							className="p-2 mb-3 bg-[#101011] border w-[95%] text-white"
+							value={description}
+							onChange={(e) => setDescription(e.target.value)}
+						></textarea>
+						<div className="flex justify-between">
+							{/* Stock */}
+							<div>
+								<label htmlFor="stock">Count in Stock</label> <br />
+								<input
+									type="text"
+									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+									value={stock}
+									onChange={(e) => setStock(e.target.value)}
+								/>
+							</div>
+							{/* Category */}
+							<div>
+								<label htmlFor="">Category</label>
+								<select
+									placeholder="Choose a category"
+									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[# 101011] text-white"
+									onChange={(e) => setCategory(e.target.value)}
+								>
+									{categories.map((category) => (
+										<option key={category._id} value={category._id}>
+											{category.name}
+										</option>
+									))}
+								</select>
 							</div>
 						</div>
 					</div>

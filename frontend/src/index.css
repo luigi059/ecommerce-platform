@@ -7,12 +7,6 @@ body {
 	color: #fff;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='password'] {
-	background-color: #000;
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
