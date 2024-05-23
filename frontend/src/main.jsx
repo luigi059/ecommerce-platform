@@ -13,6 +13,7 @@ import UpdateProduct from './pages/Admin/UpdateProduct.jsx';
 import UserList from './pages/Admin/UserList.jsx';
 import Login from './pages/Auth/Login.jsx';
 import Register from './pages/Auth/Register.jsx';
+import Home from './pages/Home.jsx';
 import UpdateProfile from './pages/User/UpdateProfile.jsx';
 import store from './redux/store.js';
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
+			<Route index={true} path="/" element={<Home />} />
 			<Route path="/admin" element={<AdminRoutes />}>
 				<Route path="userlist" element={<UserList />} />
 				<Route path="categorylist" element={<CategoryList />} />

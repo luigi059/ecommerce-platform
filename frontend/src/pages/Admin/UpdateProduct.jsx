@@ -93,8 +93,8 @@ const UpdateProduct = () => {
 			);
 			if (!answer) return;
 
-			const { data } = await deleteProduct(params._id);
-			toast.success(`"${data.name}" is deleted`);
+			await deleteProduct(params._id);
+			toast.success('Product Deleted');
 			refetch();
 			navigate('/admin/products');
 		} catch (err) {
