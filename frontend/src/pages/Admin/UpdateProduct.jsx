@@ -5,6 +5,7 @@ import { useGetCategoriesQuery } from '../../redux/api/categoryApiSlice';
 import {
 	useDeleteProductMutation,
 	useGetProductByIdQuery,
+	useGetProductsQuery,
 	useUpdateProductMutation,
 	useUploadProductImageMutation,
 } from '../../redux/api/productApiSlice';
@@ -14,6 +15,7 @@ const UpdateProduct = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 
+	const { refetch } = useGetProductsQuery();
 	const { data: productData } = useGetProductByIdQuery(params._id);
 	const { data: categories = [] } = useGetCategoriesQuery();
 	console.log(productData);
@@ -72,14 +74,32 @@ const UpdateProduct = () => {
 
 			if (data.error) {
 				console.log(data);
-				toast.error('Create Product Failed. Try Again.');
+				toast.error('Update Product Failed. Try Again.');
 			} else {
-				toast.success(`${data.name} is created`);
-				navigate('/');
+				toast.success(`${data.name} is updated`);
+				refetch();
+				navigate('/admin/products');
 			}
 		} catch (error) {
 			console.error(error);
 			toast.error('Product create failed. Try Again.');
+		}
+	};
+
+	const handleDelete = async () => {
+		try {
+			let answer = window.confirm(
+				'Are you sure you want to delete this product?'
+			);
+			if (!answer) return;
+
+			const { data } = await deleteProduct(params._id);
+			toast.success(`"${data.name}" is deleted`);
+			refetch();
+			navigate('/admin/products');
+		} catch (err) {
+			console.log(err);
+			toast.error('Delete failed. Try again.');
 		}
 	};
 
@@ -198,7 +218,7 @@ const UpdateProduct = () => {
 									Update
 								</button>
 								<button
-									// onClick={handleDelete}
+									onClick={handleDelete}
 									className="py-4 px-10 mt-5 rounded-lg text-lg font-bold  bg-pink-600"
 								>
 									Delete

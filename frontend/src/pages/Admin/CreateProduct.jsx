@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useGetCategoriesQuery } from '../../redux/api/categoryApiSlice';
 import {
 	useCreateProductMutation,
+	useGetProductsQuery,
 	useUploadProductImageMutation,
 } from '../../redux/api/productApiSlice';
 import AdminMenu from './AdminMenu';
@@ -22,6 +23,7 @@ const CreateProduct = () => {
 	const [uploadProductImage] = useUploadProductImageMutation();
 	const [createProduct] = useCreateProductMutation();
 	const { data: categories } = useGetCategoriesQuery();
+	const { refetch } = useGetProductsQuery();
 
 	const uploadFileHandler = async (e) => {
 		const formData = new FormData();
@@ -55,7 +57,8 @@ const CreateProduct = () => {
 				toast.error('Create Product Failed. Try Again.');
 			} else {
 				toast.success(`${data.name} is created`);
-				navigate('/');
+				refetch();
+				navigate('/admin/products');
 			}
 		} catch (error) {
 			console.error(error);
