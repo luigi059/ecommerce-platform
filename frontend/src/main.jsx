@@ -7,6 +7,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import './index.css';
 import AdminRoutes from './pages/Admin/AdminRoutes.jsx';
 import CategoryList from './pages/Admin/CategoryList.jsx';
+import CreateProduct from './pages/Admin/CreateProduct.jsx';
 import ProductsAdmin from './pages/Admin/ProductsAdmin.jsx';
 import UpdateProduct from './pages/Admin/UpdateProduct.jsx';
 import UserList from './pages/Admin/UserList.jsx';
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
 				<Route path="categorylist" element={<CategoryList />} />
 				<Route path="products" element={<ProductsAdmin />} />
 				<Route path="product/update/:_id" element={<UpdateProduct />} />
+				<Route path="createproduct" element={<CreateProduct />} />
 			</Route>
 		</Route>
 	)
