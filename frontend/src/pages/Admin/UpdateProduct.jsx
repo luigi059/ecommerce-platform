@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import { useGetCategoriesQuery } from '../../redux/api/categoryApiSlice';
 import {
 	useDeleteProductMutation,
+	useGetAllProductsQuery,
 	useGetProductByIdQuery,
-	useGetProductsQuery,
 	useUpdateProductMutation,
 	useUploadProductImageMutation,
 } from '../../redux/api/productApiSlice';
@@ -15,7 +15,7 @@ const UpdateProduct = () => {
 	const params = useParams();
 	const navigate = useNavigate();
 
-	const { refetch } = useGetProductsQuery();
+	const { refetch } = useGetAllProductsQuery();
 	const { data: productData } = useGetProductByIdQuery(params._id);
 	const { data: categories = [] } = useGetCategoriesQuery();
 	console.log(productData);

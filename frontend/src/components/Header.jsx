@@ -15,6 +15,7 @@ const Header = () => {
 
 	return (
 		<>
+			<h1 className="ml-[10rem] my-5 text-[3rem]">Top Rated Items</h1>
 			<div className="flex justify-around">
 				<div className="xl:block lg:hidden md:hidden:sm:hidden">
 					<div className="grid grid-cols-2">

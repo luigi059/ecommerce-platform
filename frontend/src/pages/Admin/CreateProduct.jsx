@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useGetCategoriesQuery } from '../../redux/api/categoryApiSlice';
 import {
 	useCreateProductMutation,
-	useGetProductsQuery,
+	useGetAllProductsQuery,
 	useUploadProductImageMutation,
 } from '../../redux/api/productApiSlice';
 import AdminMenu from './AdminMenu';
@@ -23,7 +23,7 @@ const CreateProduct = () => {
 	const [uploadProductImage] = useUploadProductImageMutation();
 	const [createProduct] = useCreateProductMutation();
 	const { data: categories } = useGetCategoriesQuery();
-	const { refetch } = useGetProductsQuery();
+	const { refetch } = useGetAllProductsQuery();
 
 	const uploadFileHandler = async (e) => {
 		const formData = new FormData();

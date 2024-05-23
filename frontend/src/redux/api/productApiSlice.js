@@ -4,13 +4,12 @@ import { PRODUCT_URL, UPLOAD_URL } from '../constants';
 export const productApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getProducts: builder.query({
-			/* 			query: ({ keyword }) => ({
+			query: ({ keyword }) => ({
 				url: `${PRODUCT_URL}`,
 				params: { keyword },
 			}),
 			keepUnusedDataFor: 5,
-			providesTags: ['Product'], */
-			query: () => PRODUCT_URL,
+			providesTags: ['Product'],
 		}),
 		getProductById: builder.query({
 			query: (productId) => `${PRODUCT_URL}/${productId}`,
@@ -18,9 +17,9 @@ export const productApiSlice = apiSlice.injectEndpoints({
 				{ type: 'Product', id: productId },
 			],
 		}),
-		/* 		allProducts: builder.query({
-			query: () => PRODUCT_URL,
-		}), */
+		getAllProducts: builder.query({
+			query: () => `${PRODUCT_URL}/allproducts`,
+		}),
 		getProductDetails: builder.query({
 			query: (productId) => ({
 				url: `${PRODUCT_URL}/${productId}`,
@@ -77,7 +76,7 @@ export const {
 	useGetProductByIdQuery,
 	useGetProductsQuery,
 	useGetProductDetailsQuery,
-	// useAllProductsQuery,
+	useAllProductsQuery,
 	useCreateProductMutation,
 	useUpdateProductMutation,
 	useDeleteProductMutation,
@@ -85,4 +84,5 @@ export const {
 	useGetTopProductsQuery,
 	useGetNewProductsQuery,
 	useUploadProductImageMutation,
+	useGetAllProductsQuery,
 } = productApiSlice;
