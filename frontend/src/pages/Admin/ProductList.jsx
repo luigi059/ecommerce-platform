@@ -19,9 +19,22 @@ const ProductList = () => {
 	const [imageUrl, setImageUrl] = useState(null);
 	const navigate = useNavigate();
 
-	const [useUploadProductImage] = useUploadProductImageMutation();
+	const [uploadProductImage] = useUploadProductImageMutation();
 	const [createProduct] = useCreateProductMutation();
 	const { data: categories } = useGetCategoriesQuery();
+
+	const uploadFileHandler = async (e) => {
+		const formData = new FormData();
+		formData.append('image', e.target.files[0]);
+		try {
+			const res = await uploadProductImage(formData).unwrap();
+			toast.success(res.message);
+			setImage(res.image);
+			setImageUrl(res.image);
+		} catch (error) {
+			toast.error(error?.data?.message || error.error);
+		}
+	};
 
 	return (
 		<div className="container xl:mx-[9rem] sm:mx-[0]">
@@ -38,13 +51,14 @@ const ProductList = () => {
 						</div>
 					)}
 					<div className="mb-3">
+						{/* Image */}
 						<label className="border text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
 							{image ? image.name : 'Upload Image'}
 							<input
 								type="file"
 								name="image"
 								accept="image/*"
-								//onChange={uploadFileHandler}
+								onChange={uploadFileHandler}
 								className={!image ? 'hidden' : 'text-white'}
 							/>
 						</label>
@@ -117,13 +131,13 @@ const ProductList = () => {
 							</div>
 							{/* Category */}
 							<div>
-								<label htmlFor="">Category</label>
+								<label htmlFor="">Category</label> <br />
 								<select
 									placeholder="Choose a category"
-									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[# 101011] text-white"
+									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
 									onChange={(e) => setCategory(e.target.value)}
 								>
-									{categories.map((category) => (
+									{categories?.map((category) => (
 										<option key={category._id} value={category._id}>
 											{category.name}
 										</option>
@@ -131,6 +145,12 @@ const ProductList = () => {
 								</select>
 							</div>
 						</div>
+						<button
+							// onClick={handleSubmit}
+							className="py-4 px-10 mt-5 rounded-lg text-lg bg-pink-600"
+						>
+							Submit
+						</button>
 					</div>
 				</div>
 			</div>
