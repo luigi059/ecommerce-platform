@@ -15,7 +15,6 @@ const ProductList = () => {
 	const [category, setCategory] = useState('');
 	const [quantity, setQuantity] = useState('');
 	const [brand, setBrand] = useState('');
-	const [stock, setStock] = useState(0);
 	const [imageUrl, setImageUrl] = useState(null);
 	const navigate = useNavigate();
 
@@ -33,6 +32,33 @@ const ProductList = () => {
 			setImageUrl(res.image);
 		} catch (error) {
 			toast.error(error?.data?.message || error.error);
+		}
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const productData = new FormData();
+			productData.append('image', image);
+			productData.append('name', name);
+			productData.append('description', description);
+			productData.append('price', price);
+			productData.append('category', category);
+			productData.append('quantity', quantity);
+			productData.append('brand', brand);
+
+			const { data } = await createProduct(productData);
+
+			if (data.error) {
+				console.log(data);
+				toast.error('Create Product Failed. Try Again.');
+			} else {
+				toast.success(`${data.name} is created`);
+				navigate('/');
+			}
+		} catch (error) {
+			console.error(error);
+			toast.error('Product create failed. Try Again.');
 		}
 	};
 
@@ -108,6 +134,23 @@ const ProductList = () => {
 								/>
 							</div>
 						</div>
+						{/* Category */}
+						<div>
+							<label htmlFor="">Category</label> <br />
+							<select
+								className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+								onChange={(e) => setCategory(e.target.value)}
+							>
+								<option value="" disabled selected>
+									Choose a category
+								</option>
+								{categories?.map((category) => (
+									<option key={category._id} value={category._id}>
+										{category.name}
+									</option>
+								))}
+							</select>
+						</div>
 						{/* Description */}
 						<label htmlFor="description" className="my-5">
 							Description
@@ -118,35 +161,8 @@ const ProductList = () => {
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
 						></textarea>
-						<div className="flex justify-between">
-							{/* Stock */}
-							<div>
-								<label htmlFor="stock">Count in Stock</label> <br />
-								<input
-									type="text"
-									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
-									value={stock}
-									onChange={(e) => setStock(e.target.value)}
-								/>
-							</div>
-							{/* Category */}
-							<div>
-								<label htmlFor="">Category</label> <br />
-								<select
-									placeholder="Choose a category"
-									className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
-									onChange={(e) => setCategory(e.target.value)}
-								>
-									{categories?.map((category) => (
-										<option key={category._id} value={category._id}>
-											{category.name}
-										</option>
-									))}
-								</select>
-							</div>
-						</div>
 						<button
-							// onClick={handleSubmit}
+							onClick={handleSubmit}
 							className="py-4 px-10 mt-5 rounded-lg text-lg bg-pink-600"
 						>
 							Submit

@@ -2,6 +2,8 @@ import asyncHandler from '../middlewares/asyncHandler.js';
 import Product from '../models/productModel.js';
 
 const createProduct = asyncHandler(async (req, res) => {
+	console.log('Hello');
+	console.log(req.fields);
 	const { name, description, price, category, quantity, brand } = req.fields;
 	switch (true) {
 		case !name:

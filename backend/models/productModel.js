@@ -28,7 +28,6 @@ const productSchema = mongoose.Schema(
 		description: { type: String, required: true },
 		numReviews: { type: String, required: true, default: 0 },
 		price: { type: String, required: true, default: 0 },
-		stock: { type: String, required: true, default: 0 },
 	},
 	{ timestamps: true }
 );
