@@ -55,20 +55,28 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 const getProducts = asyncHandler(async (req, res) => {
-	const pageSize = 6;
+	/* 	const pageSize = 6;
 	const keyword = req.query.keyword
 		? { name: { $regex: req.query.keyword, $options: 'i' } }
 		: {};
 
 	const count = await Product.countDocuments({ ...keyword });
 	const products = await Product.find({ ...keyword }).limit(pageSize);
+ */
 
-	res.status(200).json({
+	/* 	res.status(200).json({
 		products,
 		page: 1,
 		pages: Math.ceil(count / pageSize),
 		hasMore: false,
-	});
+	}); */
+
+	const products = await Product.find({})
+		.populate('category')
+		.limit(12)
+		.sort({ createAt: -1 });
+
+	res.status(200).json(products);
 });
 
 const getProductById = asyncHandler(async (req, res) => {

@@ -6,8 +6,9 @@ import {
 	useCreateProductMutation,
 	useUploadProductImageMutation,
 } from '../../redux/api/productApiSlice';
+import AdminMenu from './AdminMenu';
 
-const ProductList = () => {
+const CreateProduct = () => {
 	const [image, setImage] = useState('');
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
@@ -65,6 +66,7 @@ const ProductList = () => {
 	return (
 		<div className="container xl:mx-[9rem] sm:mx-[0]">
 			<div className="flex flex-col md:flex-row">
+				<AdminMenu />
 				<div className="md:w-3/4 p-3">
 					<div className="h-12">Create Product</div>
 					{imageUrl && (
@@ -174,4 +176,4 @@ const ProductList = () => {
 	);
 };
 
-export default ProductList;
+export default CreateProduct;
