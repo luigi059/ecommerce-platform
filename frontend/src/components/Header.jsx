@@ -1,3 +1,4 @@
+import ProductCarousel from '../pages/Products/ProductCarousel';
 import SmallProduct from '../pages/Products/SmallProduct';
 import { useGetTopProductsQuery } from '../redux/api/productApiSlice';
 import Loader from './Loader';
@@ -24,7 +25,7 @@ const Header = () => {
 						))}
 					</div>
 				</div>
-				{/* 				<ProductCarousel /> */}
+				<ProductCarousel />
 			</div>
 		</>
 	);
