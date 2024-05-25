@@ -25,8 +25,9 @@ const productSchema = mongoose.Schema(
 		category: { type: ObjectId, ref: 'Category', required: true },
 		description: { type: String, required: true },
 		reviews: [reviewSchema],
+		rating: { type: Number, required: true, default: 0 },
 		description: { type: String, required: true },
-		numReviews: { type: String, required: true, default: 0 },
+		numReviews: { type: Number, required: true, default: 0 },
 		price: { type: String, required: true, default: 0 },
 	},
 	{ timestamps: true }
