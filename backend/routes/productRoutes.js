@@ -5,6 +5,7 @@ import {
 	createProductReview,
 	deleteProduct,
 	getAllProducts,
+	getFilteredProducts,
 	getNewProducts,
 	getProductById,
 	getProducts,
@@ -22,6 +23,7 @@ router
 router.get('/top', getTopProducts);
 router.get('/new', getNewProducts);
 router.get('/allproducts', getAllProducts);
+router.get('/filtered-products', getFilteredProducts);
 router
 	.route('/:id')
 	.put(authenticate, authorizeAdmin, formidable(), updateProduct)
