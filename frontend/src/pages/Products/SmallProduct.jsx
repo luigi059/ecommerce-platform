@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
-//import HeartIcon from './HeartIcon';
+import LikeIcon from './LikeIcon';
 
 const SmallProduct = ({ product }) => {
 	return (
@@ -11,7 +11,7 @@ const SmallProduct = ({ product }) => {
 					alt={product.name}
 					className="h-auto rounded"
 				/>
-				{/* <HeartIcon product={product} /> */}
+				<LikeIcon product={product} />
 			</div>
 
 			<div className="p-4">
