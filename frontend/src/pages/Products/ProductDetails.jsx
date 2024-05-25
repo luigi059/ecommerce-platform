@@ -40,6 +40,22 @@ const ProductDetails = () => {
 	const [createReview, { isLoading: loadingProductReview }] =
 		useCreateReviewMutation();
 
+	const submitHandler = async (e) => {
+		e.preventDefault();
+
+		try {
+			await createReview({
+				productId,
+				rating,
+				review,
+			}).unwrap();
+			refetch();
+			toast.success('Review created successfully');
+		} catch (error) {
+			toast.error(error?.data || error.message);
+		}
+	};
+
 	return (
 		<>
 			<div>
@@ -120,7 +136,7 @@ const ProductDetails = () => {
 							<ProductTabs
 								loadingProductReview={loadingProductReview}
 								userInfo={userInfo}
-								//submitHandler={submitHandler}
+								submitHandler={submitHandler}
 								rating={rating}
 								setRating={setRating}
 								review={review}
