@@ -18,9 +18,12 @@ const likeSlice = createSlice({
 			// Set the liked products from localStorage
 			return action.payload;
 		},
+		// eslint-disable-next-line no-unused-vars
+		resetLikes: (state) => (state = []),
 	},
 });
 
-export const { addToLikes, removeFromLikes, setLikes } = likeSlice.actions;
+export const { addToLikes, removeFromLikes, setLikes, resetLikes } =
+	likeSlice.actions;
 export const selectLikedProducts = (state) => state.likes;
 export default likeSlice.reducer;

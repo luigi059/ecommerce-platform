@@ -3,7 +3,6 @@ import Product from '../models/productModel.js';
 
 const createProduct = asyncHandler(async (req, res) => {
 	console.log('Hello');
-	console.log(req.fields);
 	const { name, description, price, category, quantity, brand } = req.fields;
 	switch (true) {
 		case !name:
@@ -130,10 +129,13 @@ const getAllProducts = asyncHandler(async (req, res) => {
 });
 
 const getFilteredProducts = asyncHandler(async (req, res) => {
+	console.log('filtered products');
+	console.log(req.body);
 	const { checked, radio } = req.body;
 
 	let args = {};
 	if (checked.length > 0) args.category = checked;
+	console.log(args);
 	if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
 
 	const products = await Product.find(args);

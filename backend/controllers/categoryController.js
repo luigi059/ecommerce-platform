@@ -19,7 +19,6 @@ const updateCategory = asyncHandler(async (req, res) => {
 	if (!name) return res.status(400).json({ error: 'Name is required' });
 
 	const category = await Category.findById(categoryId);
-	console.log(category);
 	if (!category) return res.status(400).json({ error: 'Category not found' });
 
 	category.name = name;
@@ -35,7 +34,6 @@ const deleteCategory = asyncHandler(async (req, res) => {
 const listCategories = asyncHandler(async (req, res) => {
 	console.log('Hi There');
 	const categories = await Category.find({});
-	console.log(categories);
 	res.status(200).json(categories);
 });
 

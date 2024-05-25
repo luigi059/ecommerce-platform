@@ -9,6 +9,7 @@ import {
 	setChecked,
 	setProducts,
 } from '../redux/features/shop/shopSlice';
+import ProductCard from './Products/ProductCard';
 
 const Shop = () => {
 	const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Shop = () => {
 		if (!categoriesQuery.isLoading) {
 			dispatch(setCategories(categoriesQuery.data));
 		}
-	}, [categoriesQuery.data, dispatch]);
+	}, [categoriesQuery.isLoading]);
 
 	useEffect(() => {
 		if (!checked.length || !radio.length) {
@@ -71,7 +72,7 @@ const Shop = () => {
 	];
 	const handlePriceChange = (e) => {
 		// Update the price filter state when the user types in the input filed
-		setPriceFilter(e.target.value);
+		dispatch(setPriceFilter(e.target.value));
 	};
 
 	return (
@@ -109,23 +110,21 @@ const Shop = () => {
 					</h2>
 					<div className="p-5">
 						{uniqueBrands?.map((brand) => (
-							<>
-								<div className="flex items-enter mr-4 mb-5">
-									<input
-										type="radio"
-										id={brand}
-										name="brand"
-										onChange={() => handleBrandClick(brand)}
-										className="w-4 h-4 text-pink-400 bg-[#101011] border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-									/>
-									<label
-										htmlFor="pink-radio"
-										className="ml-2 text-sm font-medium text-white dark:text-gray-300"
-									>
-										{brand}
-									</label>
-								</div>
-							</>
+							<div className="flex items-enter mr-4 mb-5" key={brand}>
+								<input
+									type="radio"
+									id={brand}
+									name="brand"
+									onChange={() => handleBrandClick(brand)}
+									className="w-4 h-4 text-pink-400 bg-[#101011] border-gray-300 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+								/>
+								<label
+									htmlFor="pink-radio"
+									className="ml-2 text-sm font-medium text-white dark:text-gray-300"
+								>
+									{brand}
+								</label>
+							</div>
 						))}
 					</div>
 					{/* PRICE */}
@@ -160,7 +159,7 @@ const Shop = () => {
 						) : (
 							products?.map((p) => (
 								<div className="p-3" key={p._id}>
-									{/* <ProductCard p={p} /> */}
+									<ProductCard p={p} />
 								</div>
 							))
 						)}

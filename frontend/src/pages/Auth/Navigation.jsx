@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogoutMutation } from '../../redux/api/userApiSlice';
 import { logout } from '../../redux/features/auth/authSlice';
+import { resetCart } from '../../redux/features/cart/cartSlice';
+import { resetLikes } from '../../redux/features/likes/likeSlice';
 import LikesCount from '../Products/LikesCount';
 import './Navigation.css';
 
@@ -31,6 +33,8 @@ const Navigation = () => {
 	const [logoutApiCall] = useLogoutMutation();
 	const logoutHandler = async () => {
 		try {
+			dispatch(resetCart());
+			dispatch(resetLikes());
 			await logoutApiCall().unwrap();
 			dispatch(logout());
 			navigate('/login');
@@ -55,12 +59,13 @@ const Navigation = () => {
 					<AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
 					<span className="hidden nav-item-name mt-[3rem]">HOME</span> {''}
 				</Link>
+				{/* SHOP */}
 				<Link
-					to="/"
+					to="/shop"
 					className="flex items-center transition-transform transform hover:translate-x-2"
 				>
 					<AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
-					<span className="hidden nav-item-name mt-[3rem]">SHOP</span> {''}
+					<span className="hidden nav-item-name mt-[3rem]">SHOP</span>{' '}
 				</Link>
 				{/* CART */}
 				<Link to="/cart" className="flex relative">
