@@ -23,7 +23,7 @@ router
 router.get('/top', getTopProducts);
 router.get('/new', getNewProducts);
 router.get('/allproducts', getAllProducts);
-router.get('/filtered-products', getFilteredProducts);
+router.post('/filtered-products', getFilteredProducts);
 router
 	.route('/:id')
 	.put(authenticate, authorizeAdmin, formidable(), updateProduct)
