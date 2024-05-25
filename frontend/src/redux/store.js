@@ -3,6 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query/react';
 import { getLikesFromLocalStorage } from '../utils/localStorage';
 import { apiSlice } from './api/apiSlice';
 import authReducer from './features/auth/authSlice';
+import cartReducer from './features/cart/cartSlice';
 import likesReducer from './features/likes/likeSlice';
 
 const initialLikes = getLikesFromLocalStorage() || [];
@@ -12,6 +13,7 @@ const store = configureStore({
 		[apiSlice.reducerPath]: apiSlice.reducer,
 		auth: authReducer,
 		likes: likesReducer,
+		cart: cartReducer,
 	},
 	preloadedState: {
 		likes: initialLikes,

@@ -16,7 +16,8 @@ import {
 	useCreateReviewMutation,
 	useGetProductDetailsQuery,
 } from '../../redux/api/productApiSlice';
-import { default as Like, default as LikeIcon } from './LikeIcon';
+import { addToCart } from '../../redux/features/cart/cartSlice';
+import LikeIcon from './LikeIcon';
 import ProductTabs from './ProductTabs';
 import Ratings from './Ratings';
 
@@ -54,6 +55,11 @@ const ProductDetails = () => {
 			console.log(error);
 			toast.error(error?.data.error || error.message);
 		}
+	};
+
+	const addToCartHandler = () => {
+		dispatch(addToCart({ ...product, qty }));
+		navigate('/cart');
 	};
 
 	return (
@@ -123,7 +129,7 @@ const ProductDetails = () => {
 							{/* Add To Cart */}
 							<div className="btn-container">
 								<button
-									// onClick={addToCartHandler}
+									onClick={addToCartHandler}
 									disabled={product.countInStock === 0}
 									className="bg-pink-600 text-white py-2 px-4 rounded-lg mt-4 md:mt-0"
 								>
