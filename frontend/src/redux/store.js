@@ -5,6 +5,7 @@ import { apiSlice } from './api/apiSlice';
 import authReducer from './features/auth/authSlice';
 import cartReducer from './features/cart/cartSlice';
 import likesReducer from './features/likes/likeSlice';
+import shopReducer from './features/shop/shopSlice';
 
 const initialLikes = getLikesFromLocalStorage() || [];
 
@@ -14,6 +15,7 @@ const store = configureStore({
 		auth: authReducer,
 		likes: likesReducer,
 		cart: cartReducer,
+		shop: shopReducer,
 	},
 	preloadedState: {
 		likes: initialLikes,
