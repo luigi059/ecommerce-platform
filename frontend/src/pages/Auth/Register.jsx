@@ -43,7 +43,7 @@ const Register = () => {
 				toast.success('User successfully registered');
 			} catch (error) {
 				console.error(error);
-				toast.error(error.data.message);
+				toast.error(error?.data.error);
 			}
 		}
 	};

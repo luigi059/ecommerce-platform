@@ -54,7 +54,7 @@ const UpdateProduct = () => {
 			toast.success(res.message);
 			setImage(res.image);
 		} catch (error) {
-			toast.error(error?.data?.message || error.error);
+			toast.error(error?.data.error || error.error);
 		}
 	};
 

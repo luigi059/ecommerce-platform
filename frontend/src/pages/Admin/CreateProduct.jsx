@@ -34,7 +34,7 @@ const CreateProduct = () => {
 			setImage(res.image);
 			setImageUrl(res.image);
 		} catch (error) {
-			toast.error(error?.data?.message || error.error);
+			toast.error(error?.data.error || error.error);
 		}
 	};
 

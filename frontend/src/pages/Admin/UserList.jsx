@@ -29,7 +29,7 @@ const UserList = () => {
 				await deleteUser(id);
 				refetch();
 			} catch (error) {
-				toast.error(error.data.message || error.error);
+				toast.error(error?.data.error || error.error);
 			}
 		}
 	};
@@ -50,7 +50,7 @@ const UserList = () => {
 			setUpdateUserId(null);
 			refetch();
 		} catch (error) {
-			toast.error(error.data.message || error.error);
+			toast.error(error?.data.error || error.error);
 		}
 	};
 

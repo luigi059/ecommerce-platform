@@ -26,14 +26,13 @@ const CategoryList = () => {
 
 		try {
 			const result = await createCategory({ name }).unwrap();
-			if (result.error) return toast.error(result.error);
+			if (result.error) return toast.error(result.error?.data.error);
 			else {
 				setName('');
 				toast.success(`${result.name} successfully created`);
 				refetch();
 			}
 		} catch (error) {
-			console.error(error);
 			return toast.error('Creating category failed, try again.');
 		}
 	};
@@ -47,7 +46,7 @@ const CategoryList = () => {
 				categoryId: selectedCategory._id,
 				updatedCategory: { name: updateName },
 			}).unwrap();
-			if (result.error) toast.error(result.error);
+			if (result.error) toast.error(result.error?.data.error);
 			else {
 				toast.success(`${result.name} successfully updated`);
 				setSelectedCategory(null);
@@ -64,7 +63,7 @@ const CategoryList = () => {
 	const handleDeleteCategory = async () => {
 		try {
 			const result = await deleteCategory(selectedCategory._id).unwrap();
-			if (result.error) return toast.error(result.error);
+			if (result.error) return toast.error(result.error?.data.error);
 			else {
 				toast.success(`Category successfully deleted`);
 				setSelectedCategory(null);
