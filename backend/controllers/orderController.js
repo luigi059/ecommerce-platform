@@ -4,10 +4,7 @@ import Product from '../models/productModel.js';
 
 // Utility Function
 function calcPrices(orderItems) {
-	const itemsPrice = orderItems.reduce(
-		(acc, item) => acc + item.price * item.qty,
-		0
-	);
+	const itemsPrice = orderItems.reduce((acc, item) => acc + item.price, 0);
 	const shippingPrice = itemsPrice > 100 ? 0 : 10;
 	const taxRate = 0.15;
 	const taxPrice = (itemsPrice * taxRate).toFixed(2);
@@ -127,7 +124,7 @@ const findOrderById = asyncHandler(async (req, res) => {
 
 const markOrderAsPaid = asyncHandler(async (req, res) => {
 	const order = await Order.findById(req.params.id);
-
+	console.log(req.body);
 	if (order) {
 		order.isPaid = true;
 		order.paidAt = Date.now();
