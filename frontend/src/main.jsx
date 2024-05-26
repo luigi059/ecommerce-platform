@@ -15,6 +15,7 @@ import Login from './pages/Auth/Login.jsx';
 import Register from './pages/Auth/Register.jsx';
 import Cart from './pages/Cart.jsx';
 import Home from './pages/Home.jsx';
+import Shipping from './pages/Orders/Shipping.jsx';
 import Likes from './pages/Products/Likes.jsx';
 import ProductDetails from './pages/Products/ProductDetails.jsx';
 import Shop from './pages/Shop.jsx';
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
 		<Route path="/" element={<App />}>
 			<Route path="" element={<PrivateRoute />}>
 				<Route path="/profile" element={<UpdateProfile />} />
+				<Route path="/shipping" element={<Shipping />} />
 			</Route>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
