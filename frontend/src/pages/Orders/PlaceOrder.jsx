@@ -15,6 +15,7 @@ const PlaceOrder = () => {
 	const [createOrder, { isLoading }] = useCreateOrderMutation();
 
 	useEffect(() => {
+		console.log(cart);
 		if (!cart.shippingAddress.address) {
 			navigate('/shipping');
 		}
@@ -121,8 +122,10 @@ const PlaceOrder = () => {
 
 					<button
 						type="button"
-						className="bg-pink-500 text-white py-2 px-2 rounded-full text-lg w-full mt-4"
-						disabled={cart.cartItems === 0}
+						className={`${
+							cart.cartItems.length === 0 ? 'opacity-40' : ''
+						} bg-pink-500 text-white py-2 px-2 rounded-full text-lg w-full mt-4`}
+						disabled={cart.cartItems.length === 0}
 						onClick={placeOrderHandler}
 					>
 						Place Order
