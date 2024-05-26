@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import ProgressSteps from '../../components/ProgressSteps';
 import {
 	savePaymentMethod,
 	saveShippingAddress,
@@ -29,7 +30,8 @@ const Shipping = () => {
 
 	return (
 		<div className="container mx-auto mt-10">
-			<div className="mt-[10rem] flex justify-around items-center flex-wrap">
+			<ProgressSteps step1 step2 />
+			<div className="mt-[5rem] flex justify-around items-center flex-wrap">
 				<form className="w-[40rem]">
 					<h1 className="text-2xl font-semibold mb-4">Shipping</h1>
 					<div className="mb-4">
