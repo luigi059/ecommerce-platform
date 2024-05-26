@@ -29,8 +29,6 @@ router
 	.put(authenticate, authorizeAdmin, formidable(), updateProduct)
 	.delete(authenticate, authorizeAdmin, deleteProduct)
 	.get(getProductById);
-router
-	.route('/:id/reviews')
-	.post(authenticate, authorizeAdmin, createProductReview);
+router.route('/:id/reviews').post(authenticate, createProductReview);
 
 export default router;
