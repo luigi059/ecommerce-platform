@@ -28,7 +28,6 @@ const Register = () => {
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		console.log(username, email, password, confirmPassword);
 		if (password !== confirmPassword) toast.error('Passwords do not match');
 		else {
 			try {
@@ -37,7 +36,6 @@ const Register = () => {
 					email,
 					password,
 				}).unwrap();
-				console.log(res);
 				dispatch(setCredentials({ ...res }));
 				navigate(res);
 				toast.success('User successfully registered');

@@ -1,12 +1,6 @@
 import moment from 'moment';
 import { useState } from 'react';
-import {
-	FaBox,
-	FaClock,
-	FaShoppingCart,
-	FaStar,
-	FaStore,
-} from 'react-icons/fa';
+import { FaClock, FaShoppingCart, FaStore } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -26,6 +20,7 @@ const ProductDetails = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	// eslint-disable-next-line no-unused-vars
 	const [qty, setQty] = useState(1);
 	const [rating, setRating] = useState(0);
 	const [review, setReview] = useState('');
@@ -52,7 +47,6 @@ const ProductDetails = () => {
 			refetch();
 			toast.success('Review created successfully');
 		} catch (error) {
-			console.log(error);
 			toast.error(error?.data.error || error.message);
 		}
 	};

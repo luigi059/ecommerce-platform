@@ -4,7 +4,6 @@ import User from '../models/userModel.js';
 import generateToken from '../utils/createToken.js';
 
 const createUser = asyncHandler(async (req, res) => {
-	console.log(req.body);
 	const { username, email, password } = req.body;
 
 	if (!username || !email || !password)
@@ -103,7 +102,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const deleteUser = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.params.id);
-	console.log(req.params.id);
 	if (user) {
 		if (user.isAdmin)
 			return res.status(400).json({ error: 'Cannot delete an admin user' });
@@ -119,7 +117,6 @@ const getUserById = asyncHandler(async (req, res) => {
 });
 
 const updateUserById = asyncHandler(async (req, res) => {
-	console.log(req.body);
 	const { username, email, isAdmin } = req.body;
 	const user = await User.findById(req.params.id);
 	if (user) {

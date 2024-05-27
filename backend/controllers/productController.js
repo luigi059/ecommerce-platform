@@ -2,7 +2,6 @@ import asyncHandler from '../middlewares/asyncHandler.js';
 import Product from '../models/productModel.js';
 
 const createProduct = asyncHandler(async (req, res) => {
-	console.log('Hello');
 	const { name, description, price, category, quantity, brand } = req.fields;
 	switch (true) {
 		case !name:
@@ -54,7 +53,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 const getProducts = asyncHandler(async (req, res) => {
-	console.log('getProducts');
 	const pageSize = 6;
 	const keyword = req.query.keyword
 		? { name: { $regex: req.query.keyword, $options: 'i' } }
@@ -72,7 +70,6 @@ const getProducts = asyncHandler(async (req, res) => {
 });
 
 const getProductById = asyncHandler(async (req, res) => {
-	console.log('getProductById');
 	const product = await Product.findById(req.params.id);
 	if (product) return res.status(200).json(product);
 	else return res.status(404).json({ error: 'Product not found' });
@@ -129,13 +126,10 @@ const getAllProducts = asyncHandler(async (req, res) => {
 });
 
 const getFilteredProducts = asyncHandler(async (req, res) => {
-	console.log('filtered products');
-	console.log(req.body);
 	const { checked, radio } = req.body;
 
 	let args = {};
 	if (checked.length > 0) args.category = checked;
-	console.log(args);
 	if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
 
 	const products = await Product.find(args);

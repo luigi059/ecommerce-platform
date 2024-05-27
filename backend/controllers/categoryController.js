@@ -32,7 +32,6 @@ const deleteCategory = asyncHandler(async (req, res) => {
 });
 
 const listCategories = asyncHandler(async (req, res) => {
-	console.log('Hi There');
 	const categories = await Category.find({});
 	res.status(200).json(categories);
 });

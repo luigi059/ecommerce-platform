@@ -21,11 +21,10 @@ const Navigation = () => {
 	const { cartItems } = useSelector((state) => state.cart);
 
 	const [dropdownOpen, setDropdownOpen] = useState(false);
+	// eslint-disable-next-line no-unused-vars
 	const [showSideBar, setShowSideBar] = useState(false);
 
 	const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-	const toggleSideBar = () => setShowSideBar(!showSideBar);
-	const closeSideBar = () => setShowSideBar(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -128,7 +127,7 @@ const Navigation = () => {
 
 				{dropdownOpen && userInfo && (
 					<ul
-						className={`absolute right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
+						className={`absolute right-0 mt-2 mr-14 space-y-2 bg-[#151515] text-white rounded-lg ${
 							!userInfo.isAdmin ? '-top-20' : '-top-80'
 						}`}
 					>
@@ -137,7 +136,7 @@ const Navigation = () => {
 								<li>
 									<Link
 										to="/admin/dashboard"
-										className="block px-4 py-2 hover:bg-gray-100"
+										className="block px-4 py-2 hover:bg-[#313131]"
 									>
 										Dashboard
 									</Link>
@@ -145,7 +144,7 @@ const Navigation = () => {
 								<li>
 									<Link
 										to="/admin/products"
-										className="block px-4 py-2 hover:bg-gray-100"
+										className="block px-4 py-2 hover:bg-[#313131]"
 									>
 										Products
 									</Link>
@@ -153,39 +152,41 @@ const Navigation = () => {
 								<li>
 									<Link
 										to="/admin/categorylist"
-										className="block px-4 py-2 hover:bg-gray-100"
+										className="block px-4 py-2 hover:bg-[#313131]"
 									>
 										Category
 									</Link>
 								</li>
 								<li>
 									<Link
-										to="/admin/orderlist"
-										className="block px-4 py-2 hover:bg-gray-100"
-									>
-										Orders
-									</Link>
-								</li>
-								<li>
-									<Link
 										to="/admin/userlist"
-										className="block px-4 py-2 hover:bg-gray-100"
+										className="block px-4 py-2 hover:bg-[#313131]"
 									>
 										Users
 									</Link>
 								</li>
 							</>
 						)}
-
 						<li>
-							<Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+							<Link
+								to="/my-orders"
+								className="block px-4 py-2 hover:bg-[#313131]"
+							>
+								My Orders
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/profile"
+								className="block px-4 py-2 hover:bg-[#313131]"
+							>
 								Profile
 							</Link>
 						</li>
 						<li>
 							<button
 								onClick={logoutHandler}
-								className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+								className="block w-full px-4 py-2 text-left hover:bg-[#313131]"
 							>
 								Logout
 							</button>

@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 import { useLoginMutation } from '../../redux/api/userApiSlice';
 import { setCredentials } from '../../redux/features/auth/authSlice';
-import store from '../../redux/store';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
@@ -23,7 +22,6 @@ const Login = () => {
 	const redirect = sp.get('redirect') || '/';
 
 	useEffect(() => {
-		console.log(store.getState());
 		if (userInfo) navigate(redirect);
 	}, [navigate, redirect, userInfo]);
 
@@ -31,10 +29,8 @@ const Login = () => {
 		e.preventDefault();
 		try {
 			const res = await login({ email, password }).unwrap();
-			console.log(res);
 			dispatch(setCredentials({ ...res }));
 		} catch (error) {
-			console.log(error);
 			toast.error(error?.data.error || error.message);
 		}
 	};

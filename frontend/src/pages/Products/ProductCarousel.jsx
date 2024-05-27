@@ -1,11 +1,5 @@
 import moment from 'moment';
-import {
-	FaBox,
-	FaClock,
-	FaShoppingCart,
-	FaStar,
-	FaStore,
-} from 'react-icons/fa';
+import { FaClock, FaShoppingCart, FaStar, FaStore } from 'react-icons/fa';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';

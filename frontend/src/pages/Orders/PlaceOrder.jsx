@@ -15,7 +15,6 @@ const PlaceOrder = () => {
 	const [createOrder, { isLoading }] = useCreateOrderMutation();
 
 	useEffect(() => {
-		console.log(cart);
 		if (!cart.shippingAddress.address) {
 			navigate('/shipping');
 		}

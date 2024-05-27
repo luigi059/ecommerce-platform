@@ -5,7 +5,6 @@ import AdminMenu from './AdminMenu';
 
 const ProductsAdmin = () => {
 	const { data: products, isLoading, isError } = useGetAllProductsQuery();
-	console.log(products);
 
 	if (isLoading) {
 		return <div>Loading...</div>;

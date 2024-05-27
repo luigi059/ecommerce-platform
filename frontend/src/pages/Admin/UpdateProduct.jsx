@@ -18,7 +18,6 @@ const UpdateProduct = () => {
 	const { refetch } = useGetAllProductsQuery();
 	const { data: productData } = useGetProductByIdQuery(params._id);
 	const { data: categories = [] } = useGetCategoriesQuery();
-	console.log(productData);
 
 	const [image, setImage] = useState(productData?.image || '');
 	const [name, setName] = useState(productData?.name || '');
@@ -73,7 +72,6 @@ const UpdateProduct = () => {
 			const { data } = await updateProduct({ productId: params._id, formData });
 
 			if (data.error) {
-				console.log(data);
 				toast.error('Update Product Failed. Try Again.');
 			} else {
 				toast.success(`${data.name} is updated`);
@@ -98,7 +96,6 @@ const UpdateProduct = () => {
 			refetch();
 			navigate('/admin/products');
 		} catch (err) {
-			console.log(err);
 			toast.error('Delete failed. Try again.');
 		}
 	};
